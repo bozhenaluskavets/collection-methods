@@ -24,6 +24,9 @@ const DB = {
 };
 
 const useCollection = coll => {
+    if (!DB.collections[coll]) {
+        DB.collections[coll] = {}
+    }
     const collection = DB.collections[coll];
     const obj = {};
 
@@ -31,11 +34,10 @@ const useCollection = coll => {
         const info = collection[item];
         if (!info) {
             return null;
-        } else {
-            return {
-                id: item,
-                ...info,
-            }
+        }
+        return {
+            id: item,
+            ...info,
         }
     }
 
@@ -47,17 +49,15 @@ const useCollection = coll => {
 
         if (!collection) {
             return null;
-        } else {
-            return collection[id] = item;
-        }
+        } 
+        return collection[id] = item;
     }
 
     obj.deleteOne = (item) => {
         if (!collection) {
             return null;
-        } else {
-            delete collection[item];
         }
+        delete collection[item];
         
     }
 
